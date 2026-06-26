@@ -1,6 +1,7 @@
 const CACHE_NAME = 'story-app-static-v3';
 const DYNAMIC_CACHE_NAME = 'story-app-dynamic-v3';
 
+// Daftar Aset Statis relatif agar aman dari eror 404 Redundant di GitHub Pages
 const ASSETS_TO_CACHE = [
   './',
   'index.html',
@@ -37,6 +38,12 @@ self.addEventListener('activate', (event) => {
 
 // 3. Event Fetch: Interseptor Jaringan & Strategi Caching
 self.addEventListener('fetch', (event) => {
+  // Perbaikan Utama: Tolak semua metode non-GET (seperti POST saat kirim cerita / subscribe)
+  // karena Cache Storage browser bawaan hanya mendukung caching data bermetode GET!
+  if (event.request.method !== 'GET') {
+    return;
+  }
+
   const requestUrl = new URL(event.request.url);
 
   // --- STRATEGI A: KHUSUS DATA DINAMIS API STORIES (Network First) ---
