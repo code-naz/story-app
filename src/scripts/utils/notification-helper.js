@@ -60,7 +60,7 @@ class NotificationHelper {
       let subscription = await registration.pushManager.getSubscription();
       
       if (!subscription) {
-        const vapidPublicKey = 'BCCs2eonMI-6H2ctvFaWg-UYddv387Vno_bzUzALpB442r21CnsHmtrx8biyPi_E-1fSGABK_Qs_G1vPoJJqxbk';
+        const vapidPublicKey = 'BCCs2eonMI-6H2ctvFaWg-UYdDv387Vno_bzUzALpB442r2lCnsHmtrx8biyPi_E-1fSGABK_Qs_GlvPoJJqxbk';
         const convertedKey = this.#urlBase64ToUint8Array(vapidPublicKey);
 
         subscription = await registration.pushManager.subscribe({
