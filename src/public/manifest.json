@@ -1,0 +1,57 @@
+{
+  "name": "Story App Dicoding",
+  "short_name": "StoryApp",
+  "description": "Aplikasi berbagi cerita dan lokasi digital",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#7cc2f0",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "40x40",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "favicon.png",
+      "sizes": "40x40",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Tambah Cerita Baru",
+      "url": "./#/add-story",
+      "icons": [{ "src": "images/logo.png", "sizes": "512x512" }]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "images/screenshot-wide.png",
+      "sizes": "1124x948",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "images/screenshot-narrow.png",
+      "sizes": "1082x2402",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ]
+}

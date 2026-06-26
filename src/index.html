@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#7cc2f0" />
+    <title>Story App</title>
+    
+    <link rel="manifest" href="/manifest.json" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Lewati ke Konten Utama</a>
+
+    <header>
+      <div class="container">
+        <div class="main-header">
+          <button id="drawer-button" class="drawer-button" aria-label="Buka Menu Navigasi">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+          
+          <a href="#/" class="brand-name">📖 StoryApp</a>
+
+          <nav id="navigation-drawer" class="navigation-drawer">
+            <ul class="nav-list">
+              <li><a href="#/"><i class="fa-solid fa-house"></i> Home</a></li>
+              <li><a href="#/about"><i class="fa-solid fa-circle-info"></i> About</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content" class="main-content" tabindex="-1"></main>
+
+    <script type="module" src="./scripts/index.js"></script>
+  </body>
+</html>
