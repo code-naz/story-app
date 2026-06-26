@@ -1,5 +1,5 @@
-const CACHE_NAME = 'story-app-static-v1';
-const DYNAMIC_CACHE_NAME = 'story-app-dynamic-v1';
+const CACHE_NAME = 'story-app-static-v2';
+const DYNAMIC_CACHE_NAME = 'story-app-dynamic-v2';
 
 // Daftar Aset Statis (App Shell)
 const ASSETS_TO_CACHE = [
@@ -16,6 +16,7 @@ self.addEventListener('install', (event) => {
       return cache.addAll(ASSETS_TO_CACHE);
     })
   );
+  self.skipWaiting(); // 👈 PAKSA UPDATE INSTAN TANPA NUNGGU TAB DITUTUP
 });
 
 // 2. Event Activate: Membersihkan cache versi lama yang sudah usang
@@ -32,13 +33,14 @@ self.addEventListener('activate', (event) => {
       );
     })
   );
+  self.clients.claim(); // 👈 KLAIM KENDALI HALAMAN INSTAN SEKARANG JUGA
 });
 
 // 3. Event Fetch: Interseptor Jaringan & Strategi Caching
 self.addEventListener('fetch', (event) => {
   const requestUrl = new URL(event.request.url);
 
-  // --- STRATEGI A: KHUSUS DATA DINAMIS API STORIES (Kriteria 3 Advance - Network First) ---
+  // --- STRATEGI A: KHUSUS DATA DINAMIS API STORIES (Network First) ---
   if (requestUrl.href.includes('story-api.dicoding.dev/v1/stories')) {
     event.respondWith(
       fetch(event.request)
