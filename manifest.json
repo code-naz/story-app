@@ -42,14 +42,14 @@
   ],
   "screenshots": [
     {
-      "src": "images/logo.png",
-      "sizes": "512x512",
+      "src": "images/screenshot-wide.png",
+      "sizes": "1124x948",
       "type": "image/png",
       "form_factor": "wide"
     },
     {
-      "src": "images/logo.png",
-      "sizes": "512x512",
+      "src": "images/screenshot-narrow.png",
+      "sizes": "1082x2402",
       "type": "image/png",
       "form_factor": "narrow"
     }
