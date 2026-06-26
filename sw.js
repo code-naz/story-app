@@ -43,7 +43,6 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
       fetch(event.request)
         .then((response) => {
-          // Jika internet nyala, ambil data terbaru dan update isi cache dinamis
           const responseClone = response.clone();
           caches.open(DYNAMIC_CACHE_NAME).then((cache) => {
             cache.put(event.request, responseClone);
@@ -51,7 +50,6 @@ self.addEventListener('fetch', (event) => {
           return response;
         })
         .catch(() => {
-          // Jika internet MATI (Offline), otomatis selamatkan dengan data terakhir di cache
           return caches.match(event.request);
         })
     );
@@ -62,7 +60,6 @@ self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
-        // Ambil dari cache biar instan, tapi tetep fetch di background buat update cache terbaru
         fetch(event.request).then((networkResponse) => {
           if (networkResponse.status === 200) {
             caches.open(CACHE_NAME).then((cache) => cache.put(event.request, networkResponse));
@@ -71,14 +68,13 @@ self.addEventListener('fetch', (event) => {
         
         return cachedResponse;
       }
-      // Jika belum ada di cache, langsung tembak ke jaringan
       return fetch(event.request);
     })
   );
 });
 
 // ==========================================================================
-// BAGIAN BARU: LISTENERS PUSH NOTIFICATION (Kriteria 2 Advance)
+// LISTENERS PUSH NOTIFICATION (Kriteria 2 Advance)
 // ==========================================================================
 
 self.addEventListener('push', (event) => {
@@ -93,11 +89,11 @@ self.addEventListener('push', (event) => {
 
   const options = {
     body: data.body,
-    icon: 'favicon.png',
+    icon: 'images/logo.png',
     badge: 'favicon.png',
-    vibrate: [200, 100, 200], // Fitur Getaran Kustom (Advance)
+    vibrate: [200, 100, 200],
     data: {
-      url: data.url || './#/' // Membawa data URL arah navigasi halaman
+      url: data.url || './#/'
     },
     actions: [
       {

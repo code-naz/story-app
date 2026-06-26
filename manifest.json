@@ -10,33 +10,45 @@
   "icons": [
     {
       "src": "favicon.png",
-      "sizes": "192x192",
+      "sizes": "40x40",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
       "src": "favicon.png",
+      "sizes": "40x40",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "images/logo.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ],
   "shortcuts": [
     {
       "name": "Tambah Cerita Baru",
       "url": "./#/add-story",
-      "icons": [{ "src": "favicon.png", "sizes": "192x192" }]
+      "icons": [{ "src": "images/logo.png", "sizes": "512x512" }]
     }
   ],
   "screenshots": [
     {
-      "src": "favicon.png",
+      "src": "images/logo.png",
       "sizes": "512x512",
       "type": "image/png",
       "form_factor": "wide"
     },
     {
-      "src": "favicon.png",
+      "src": "images/logo.png",
       "sizes": "512x512",
       "type": "image/png",
       "form_factor": "narrow"
