@@ -1,12 +1,11 @@
-const CACHE_NAME = 'story-app-static-v2';
-const DYNAMIC_CACHE_NAME = 'story-app-dynamic-v2';
+const CACHE_NAME = 'story-app-static-v3';
+const DYNAMIC_CACHE_NAME = 'story-app-dynamic-v3';
 
-// Daftar Aset Statis (App Shell)
 const ASSETS_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/favicon.png',
-  '/manifest.json'
+  './',
+  'index.html',
+  'favicon.png',
+  'manifest.json'
 ];
 
 // 1. Event Install: Mengunci aset statis dasar aplikasi ke dalam cache
@@ -16,7 +15,7 @@ self.addEventListener('install', (event) => {
       return cache.addAll(ASSETS_TO_CACHE);
     })
   );
-  self.skipWaiting(); // 👈 PAKSA UPDATE INSTAN TANPA NUNGGU TAB DITUTUP
+  self.skipWaiting();
 });
 
 // 2. Event Activate: Membersihkan cache versi lama yang sudah usang
@@ -33,7 +32,7 @@ self.addEventListener('activate', (event) => {
       );
     })
   );
-  self.clients.claim(); // 👈 KLAIM KENDALI HALAMAN INSTAN SEKARANG JUGA
+  self.clients.claim();
 });
 
 // 3. Event Fetch: Interseptor Jaringan & Strategi Caching
@@ -66,7 +65,7 @@ self.addEventListener('fetch', (event) => {
           if (networkResponse.status === 200) {
             caches.open(CACHE_NAME).then((cache) => cache.put(event.request, networkResponse));
           }
-        }).catch(() => console.log('Aplikasi berjalan dalam mode offline untuk aset statis.'));
+        }).catch(() => console.log('Aplikasi berjalan dalam mode offline.'));
         
         return cachedResponse;
       }
