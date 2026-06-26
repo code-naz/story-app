@@ -76,3 +76,71 @@ self.addEventListener('fetch', (event) => {
     })
   );
 });
+
+// ==========================================================================
+// BAGIAN BARU: LISTENERS PUSH NOTIFICATION (Kriteria 2 Advance)
+// ==========================================================================
+
+self.addEventListener('push', (event) => {
+  console.log('Sinyal Push Notification diterima dari server...');
+
+  let data;
+  try {
+    data = event.data ? event.data.json() : { title: 'Story App', body: 'Ada kabar baru untukmu!' };
+  } catch (e) {
+    data = { title: 'Story App', body: event.data ? event.data.text() : 'Ada kabar baru untukmu!' };
+  }
+
+  const options = {
+    body: data.body,
+    icon: 'favicon.png',
+    badge: 'favicon.png',
+    vibrate: [200, 100, 200], // Fitur Getaran Kustom (Advance)
+    data: {
+      url: data.url || './#/' // Membawa data URL arah navigasi halaman
+    },
+    actions: [
+      {
+        action: 'view-action',
+        title: 'Lihat Cerita 📖',
+        icon: 'favicon.png'
+      },
+      {
+        action: 'close-action',
+        title: 'Tutup ❌'
+      }
+    ]
+  };
+
+  event.waitUntil(
+    self.registration.showNotification(data.title || 'Cerita Baru!', options)
+  );
+});
+
+self.addEventListener('notificationclick', (event) => {
+  const notification = event.notification;
+  const action = event.action;
+
+  notification.close();
+
+  if (action === 'close-action') {
+    return;
+  }
+
+  event.waitUntil(
+    clients.matchAll({ type: 'window', includeUncontrolled: true }).then((windowClients) => {
+      const targetUrl = notification.data.url;
+
+      for (let i = 0; i < windowClients.length; i++) {
+        const client = windowClients[i];
+        if (client.url.includes(targetUrl) && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      
+      if (clients.openWindow) {
+        return clients.openWindow(targetUrl);
+      }
+    })
+  );
+});
