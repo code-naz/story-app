@@ -1,5 +1,5 @@
 import ApiService from '../../data/api';
-import IdbDatabase from '../../data/idb-db'; // Import Database Pembantu
+import IdbDatabase from '../../data/idb-db';
 
 export default class AddStoryPresenter {
   #view = null;
@@ -77,7 +77,7 @@ export default class AddStoryPresenter {
     }
   }
 
-  // --- LOGIKA UTAMA SINKRONISASI & DRAFT OFFLINE (Kriteria 4 - Advance) ---
+  // --- LOGIKA SINKRONISASI OFFLINE (Kriteria 4 - Advance) ---
   async submitStory(description) {
     if (!this.#imageBlob) {
       this.#view.showError('Wajib melampirkan foto!');
@@ -105,7 +105,6 @@ export default class AddStoryPresenter {
       this.closeCameraStream();
       window.location.hash = '#/';
     } catch (error) {
-      // Skenario Cadangan: Gagal di tengah jalan karena drop koneksi mendadak
       console.warn('Gagal kirim, mengamankan data ke draft offline...', error);
       await this.#saveToOfflineDraft(description);
     } finally {
@@ -115,8 +114,6 @@ export default class AddStoryPresenter {
 
   async #saveToOfflineDraft(description) {
     try {
-      // Karena File/Blob tidak bisa disimpan mentah-mentah ke beberapa versi IDB,
-      // kita konversi file foto menjadi format Base64 Text agar aman disimpan secara offline.
       const base64Photo = await this.#convertFileToBase64(this.#imageBlob);
 
       const draftStory = {
@@ -127,7 +124,6 @@ export default class AddStoryPresenter {
         createdAt: new Date().toISOString()
       };
 
-      // Simpan ke antrean IndexedDB (Kriteria 4 Advance - Offline Save)
       await IdbDatabase.addDraft(draftStory);
 
       alert('ℹ️ Perangkatmu Offline! Cerita disimpan aman sebagai draft lokal dan akan otomatis terkirim begitu kamu kembali online.');
